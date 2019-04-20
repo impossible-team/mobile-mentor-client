@@ -1,43 +1,60 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <h1>{{ msg }}</h1>
-    <h2>Essential Links</h2>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank">Twitter</a></li>
-    </ul>
-    <h2>Ecosystem</h2>
-    <ul>
-      <li><a href="http://router.vuejs.org/" target="_blank">vue-router</a></li>
-      <li><a href="http://vuex.vuejs.org/" target="_blank">vuex</a></li>
-      <li><a href="http://vue-loader.vuejs.org/" target="_blank">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank">awesome-vue</a></li>
-    </ul>
+    <div class="head">
+      <div class="logo"></div>
+      <div class="avatar" v-if="logged"></div>
+    </div>
+    <div class="content" v-if="logged">
+    </div>
+    <app-login v-if="!logged"></app-login>
   </div>
 </template>
 
 <script>
+import Login from './components/Login'
+import userStore from './store/userStore.js'
 export default {
   name: 'app',
+  components: {
+    'AppLogin': Login
+  },
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+    }
+  },
+  computed: {
+    logged() {
+      return userStore.state.logged
     }
   }
 }
 </script>
 
 <style lang="scss">
+body {
+  padding: 0;
+  margin: 0;
+}
+p, a, span, input, button, div {
+  font-size: 16pt;
+}
+input {
+  padding: 10px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;  
+}
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  // text-align: center;
+  // color: #2c3e50;
+  // margin-top: 60px;
+  width: 100vw;
+  height: 100vh;
+  padding: 0;
+  margin:0;
 }
 
 h1, h2 {
@@ -56,5 +73,14 @@ li {
 
 a {
   color: #42b983;
+}
+.head {
+  width: 100%;
+  height: 50px;
+  background-color: blue;
+}
+.content {
+  width: 100%;
+  height: calc(100% - 50px);
 }
 </style>
