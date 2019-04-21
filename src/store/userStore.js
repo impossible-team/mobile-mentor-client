@@ -6,6 +6,7 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
   state: {
     logged: false,
+    id: 0,
     username: 'Ivan_Ivanov',
     topicStudied: 12,
     topicTotal: 15,

@@ -1,7 +1,6 @@
 <template>
     <div id="lib">
         <div class="wrapper">
-        <p class="title-page">Тема {{topicId}}</p>
         <p class="title-page-name">{{topicName}}</p>
         <input class="search-input" placeholder="Поиск по блокам">
         <div class="theme-list">
@@ -33,7 +32,7 @@ export default {
     },
     methods: {
         getBlocks () {
-            this.$http.get(httpStore.state.host + httpStore.state.blocks + '?id=' + this.$route.query['id']).then((response) => {
+            this.$http.get(httpStore.state.host + httpStore.state.blocks + '?topic__id=' + this.$route.query['id']).then((response) => {
                 this.blocks = response.data
             }).catch(error => {
                 console.log(error)

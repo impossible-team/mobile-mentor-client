@@ -3,7 +3,7 @@
         <div id="wrapper">
         </div>
         <div class="confirm">
-            <button>прочел</button>
+            <button>изучил</button>
         </div>
     </div>
 </template>
@@ -15,15 +15,16 @@ export default {
             blockContent: ''
         }
     },
-    mounted () {
-
+    created () {
+        this.getBlockContent()
     },
     methods: {
         getBlockContent () {
-            this.$http.get(httpStore.state.host + httpStore.state.blocks + this.$route.query[id] + '/').then((response) => {
-                this.blockContent = response.data
+            this.$http.get(httpStore.state.host + httpStore.state.blocks + this.$route.query['id'] + '/').then((response) => {
+                this.blockContent = response.data.content
+                console.log(response.data.content)
                 let wrapper = document.getElementById('wrapper')
-                wrapper.innerHTML(this.blockContent)
+                wrapper.innerHTML = response.data.content
             }).catch(error => {
                 console.log(error)
             })
@@ -41,7 +42,7 @@ export default {
 }
 #wrapper {
     width: 100%;
-    height: 100%;
+    height: auto;
 }
 .quest-text {
     font-size: 16pt;

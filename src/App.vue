@@ -10,16 +10,20 @@
     <app-login v-if="!logged" class="logged"></app-login>
     <div class="menu" v-if="logged">
       <div class="menu-elem">
-        <img src="./assets/img/graduation-cap.svg" @click="toList()">
+        <img v-if="$route.meta.part !== 'Stores'" src="./assets/img/gray-graduation-cap.svg" @click="toList()">
+        <img v-else src="./assets/img/graduation-cap.svg">
       </div>
       <div class="menu-elem">
-        <img src="./assets/img/swords.svg" @click="toBattle()">
+        <img v-if="$route.meta.part !== 'Battle'" src="./assets/img/gray-swords.svg" @click="toBattle()">
+        <img v-else src="./assets/img/swords.svg">
       </div>
       <div class="menu-elem">
-        <img src="./assets/img/list.svg" @click="toList()">
+        <img v-if="$route.meta.part !== 'Topic'" src="./assets/img/gray-list.svg" @click="toList()">
+        <img v-else src="./assets/img/list.svg">
       </div>
       <div class="menu-elem">
-        <img src="./assets/img/profile.svg" @click="toProfile()">
+        <img v-if="$route.meta.part !== 'Profile'" src="./assets/img/gray-profile.svg" @click="toProfile()">
+        <img v-else src="./assets/img/profile.svg">
       </div>
     </div>
   </div>
@@ -54,7 +58,7 @@ export default {
       if (id) {
         this.$http.get(httpStore.state.host + httpStore.state.profiles + id + '/').then((response) => {
               userStore.state.logged = true
-              userStore.state.username = this.name
+              userStore.state.username = response.data.user.username
               userStore.state.topicStudied = response.data.topic_studied
               userStore.state.topicTotal = response.data.topic_total
               userStore.state.gameRating = response.data.game_rating
@@ -83,7 +87,10 @@ export default {
 <style lang="scss">
 @import "./assets/app.scss";
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800');
-
+html {
+  width: 100%;
+  height: 100%;
+}
 body {
   padding: 0;
   margin: 0;

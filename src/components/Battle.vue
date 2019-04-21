@@ -6,7 +6,7 @@
                     <p class="battle-title">Состязание</p>
                     <p>Проверь свою компьютерную грамотность в интеллектуальном состязании с другим игроком и получи баллы, 
                         которые можно обменять на ценные призы!</p>
-                    <button>найти соперника</button>
+                    <button @click="getBattle()">найти соперника</button>
                 </div>
             </div>
         </div>
@@ -18,7 +18,12 @@ export default {
         return{
 
         }
-    }    
+    },
+    methods: {
+        getBattle () {
+            this.$router.push('/getBattle')
+        }
+    }
 }
 </script>
 <style lang="scss" scoped>
