@@ -2,8 +2,9 @@
     <div id="battle">
         <div class="wrapper">
             <div class="content">
+                <img class="fon" src="../assets/img/competitionbg.png">
                 <div class="content-wrapp">
-                    <p class="battle-title">Состязание</p>
+                    <!-- <p class="battle-title">Состязание</p> -->
                     <p>Проверь свою компьютерную грамотность в интеллектуальном состязании с другим игроком и получи баллы, 
                         которые можно обменять на ценные призы!</p>
                     <button @click="getBattle()">найти соперника</button>
@@ -39,6 +40,7 @@ export default {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
+    background-color: white;
 }
 .content-wrapp {
     position: absolute;
@@ -51,6 +53,7 @@ export default {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
+    z-index: 1;
 }
 .content-wrapp p {
     font-size: 11pt;
@@ -72,5 +75,13 @@ export default {
     color: black;
     margin-bottom: 50px;
     margin-top: -80px!important;
+}
+.fon {
+    position: absolute;
+    top: -50px;
+    left:0;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
 }
 </style>

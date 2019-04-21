@@ -15,7 +15,7 @@
     <div class="menu" v-if="logged">
       <div class="menu-wrapper">
       <div class="menu-elem back-arrow">
-        <img src="./assets/img/left-arrow.svg" @click="toBack()">
+        <img src="./assets/img/left-arrow.svg" @click="toProfile()">
       </div>
       <div class="menu-elem wlapa">
         <img v-if="$route.meta.part !== 'Topic'" src="./assets/img/gray-graduation-cap.svg" @click="toList()">
@@ -281,5 +281,9 @@ li {
   top:0;
   left:0;
   z-index: 1;
+}
+.quest-answer {
+    margin-bottom: 10px !important;
+    font-size: 16pt;
 }
 </style>

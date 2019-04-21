@@ -84,7 +84,7 @@ export default {
         }
     },
     mounted () {
-        // this.getProfile()
+        this.getProfile()
     },
     methods: {
         getProfile () {
@@ -92,14 +92,12 @@ export default {
             if (id) {
                 this.$http.get(httpStore.state.host + httpStore.state.profiles + id + '/').then((response) => {
                     userStore.state.logged = true
-                    userStore.state.username = this.name
                     userStore.state.topicStudied = response.data.topic_studied
                     userStore.state.topicTotal = response.data.topic_total
                     userStore.state.gameRating = response.data.game_rating
                     userStore.state.gameCount = response.data.game_total
                     userStore.state.gameWon = response.data.game_won
                     userStore.state.points = response.data.points
-                    localStorage.setItem('id', response.data.id)
                 }).catch(error => {
                     console.log(error)
                 })

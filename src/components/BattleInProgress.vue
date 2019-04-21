@@ -37,7 +37,7 @@ export default {
             })
         },
         checkGameStatus (context) {
-            this.$http.get(httpStore.state.host + httpStore.state.game + gameStore.state.gameId + '/').then((response) => {
+            context.$http.get(httpStore.state.host + httpStore.state.game + gameStore.state.gameId + '/').then((response) => {
                 let gameState = response.data.state
                 if (gameState === 3) {
                     clearInterval(context.timerId)

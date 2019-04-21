@@ -1,8 +1,11 @@
 <template>
     <div id="login">
+        <div class="fon">
+            <img src="../assets/img/loginbg.png">
+        </div>
         <div class="row">
             <div class="form-wrap">
-                <p class="login-title">Вход в систему</p>
+                <p class="login-title">Мой мобильный наставник</p>
                 <form @submit="login($event)">
                     <div class="form-input">
                         <input v-model="name" required placeholder="ваш никнейм">
@@ -62,7 +65,7 @@ export default {
     position: absolute;
     bottom:0;
     width: 100%;
-    height: 230px;
+    height: 320px;
     background-color: white;
 }
 .form-input {
@@ -77,16 +80,18 @@ export default {
 }
 .form-input input{
     width: 80%;
+    font-size: 12pt;
     height: 50px;
     margin-left: 10%;
     border-radius: 10000px;
     outline: none;
-    border: 1px solid $back-color;
+    border: 1px solid rgba($color: #000000, $alpha: .2);
     text-align: center;
 }
 .form-button button{
    width: 80%;
     height: 50px;
+    font-size: 12pt;
     margin-left: 10%;
     border-radius: 10000px;
     outline: none;
@@ -96,10 +101,26 @@ export default {
     color: white;
 }
 .login-title {
-    font-size: 24pt;
+    font-size: 15pt;
     color: black;
-    margin-top: -70px;
-    margin-bottom: 80px;
+    margin-top: 90px;
+    margin-bottom: 30px;
     margin-left: 20px;
+    margin-right: 20px;
+    font-weight: 600;
+    text-align: center;
+}
+.fon {
+    width: 100%;
+    height: 400px;
+    position: absolute;
+    top: 0;
+    left:0;
+    z-index: 1;
+}
+.fon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 </style>

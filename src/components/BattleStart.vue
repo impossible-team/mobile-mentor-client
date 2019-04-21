@@ -5,11 +5,11 @@
         </div>
         <div class="users-block">
             <div class="user">
-                <img>
+                <img src='../assets/img/avatar.png'>
                 <p>{{player1Username}}</p>
             </div>
             <div class="user">
-                <img>
+                <img src='../assets/img/avatar.png'>
                 <p>{{player2Username}}</p>
             </div>
         </div>
