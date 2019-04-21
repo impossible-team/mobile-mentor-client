@@ -6,12 +6,13 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
   state: {
     logged: false,
-    username: '',
-    themeScore: 0,
-    raiting: 0,
-    gameCount: 0,
-    winCount: 0,
-    balance: 0
+    username: 'Ivan_Ivanov',
+    topicStudied: 12,
+    topicTotal: 15,
+    gameRating: 68,
+    gameCount: 36,
+    gameWon: 24,
+    points: 314
   },
   mutations: {
     setValue (state, keyValue) {

@@ -1,46 +1,47 @@
 <template>
     <div id="profile">
+        <div class="profile-wrapper">
         <div class="avatar">
             <img>
         </div>
         <div class="username">
-            <p class="title-text">пользователь:</p>
-            <p class="text">{{username}}</p>
+            <p class="title-text full-width-text float-left-text">пользователь:</p>
+            <p class="large-text full-width-text float-left-text">{{username}}</p>
         </div>
         <div class="success">
             <div class="success-title-wrap">
-                <p class="title-text">Пройдено:</p>
-                <p class="small-text"><span class="green-text">{{themeScore}}</span>тем из 15</p>
+                <p class="title-text float-left-text">Пройдено тем:</p>
+                <p class="small-text float-right-text"><span class="green-text">{{topicStudied}}</span> из {{topicTotal}}</p>
             </div>
             <div class="success-slider-wrap">
                 <div class="full-slider"></div>
-                <div class="current-slider"></div>
-                <div class="start-slider">
+                <div class="current-slider" :style="{width: Math.floor(topicStudied/topicTotal) * 100 + '%'}"></div>
+                <div class="start-slider" :style="{left: Math.floor(topicStudied/topicTotal) * 100 - 5 + '%'}">
                     <img>
                 </div>
             </div>
         </div>
         <div class="score">
             <div class="score-title-wrap">
-                <p class="title-text">Рейтинг в состязаниях:</p>
-                <p class="small-text"><span class="green">{{raiting}}}%</span></p>
+                <p class="title-text float-left-text">Рейтинг в состязаниях:</p>
+                <p class="small-text float-right-text"><span class="green-text">{{gameRating}}%</span></p>
             </div>
             <div class="score-content-elem-wrap">
-                <div class="score-top-wrap">
-                    <p class="small-text score-text-title">Всего сыграно:</p>
-                    <p class="small-text score-text-value">{{gameCount}}</p>
+                <div class="score-wrap">
+                    <p class="small-text score-text-title float-left-text">Всего игр сыграно:</p>
+                    <p class="small-text score-text-value float-right-text">{{gameCount}}</p>
                 </div>
-                <div class="score-content-elem-wrap">
-                    <p class="small-text score-text-title">Выиграно:</p>
-                    <p class="small-text score-text-value">{{winCount}}</p>
+                <div class="score-wrap">
+                    <p class="small-text score-text-title float-left-text">Выиграно игр:</p>
+                    <p class="small-text score-text-value float-right-text">{{gameWon}}</p>
                 </div>
             </div>
         </div>
         <div class="balance">
             <div class="balance-content-wrapp">
                 <div class="balance-content-value-wrap">
-                    <p class="title-text">На счету:</p>
-                    <p class="middle-text white">{{balance}} баллов</p>
+                    <p class="title-text full-width-text white-text float-left-text">На счету:</p>
+                    <p class="middle-text full-width-text white-text float-left-text">{{points}} баллов</p>
                 </div>
                 <div class="balance-content-image-wrap">
                     <img>
@@ -50,37 +51,179 @@
         <div class="store">
             <button>потратить</button>
         </div>
+        </div>
     </div>
 </template>
 <script>
 import userStore from '../store/userStore.js'
+import httpStore from '../store/httpStore.js'
 export default {
     data () {
         return {
         }
     },
-    compute: {
+    computed: {
         username () {
             return userStore.state.username
         },
-        themeScore () {
-            return userStore.state.themeScore
+        topicStudied () {
+            return userStore.state.topicStudied
         },
-        raiting () {
-            return userStore.state.raiting
+        topicTotal () {
+            return userStore.state.topicTotal
+        },
+        gameRating () {
+            return userStore.state.gameRating
         },
         gameCount () {
             return userStore.state.gameCount
         },
-        winCount () {
-            return userStore.state.winCount
+        gameWon () {
+            return userStore.state.gameWon
         },
-        balance () {
-            return userStore.state.balance
+        points () {
+            return userStore.state.points
+        }
+    },
+    mounted () {
+        // this.getProfile()
+    },
+    methods: {
+        getProfile () {
+            let id = localStorage.getItem('id')
+            if (id) {
+                this.$http.get(httpStore.state.host + httpStore.state.profiles + id + '/').then((response) => {
+                    userStore.state.logged = true
+                    userStore.state.username = this.name
+                    userStore.state.topicStudied = response.data.topic_studied
+                    userStore.state.topicTotal = response.data.topic_total
+                    userStore.state.gameRating = response.data.game_rating
+                    userStore.state.gameCount = response.data.game_total
+                    userStore.state.gameWon = response.data.game_won
+                    userStore.state.points = response.data.points
+                    localStorage.setItem('id', response.data.id)
+                }).catch(error => {
+                    console.log(error)
+                })
+            }
         }
     }
 }
 </script>
 <style lang="scss" scoped>
+@import "../assets/app.scss";
+#profile {
+    width: 100%;
+    height: auto;
+}
+.profile-wrapper {
+    width: 100%;
+    height: auto;
+    padding-right: 20px;
+    padding-left: 20px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.avatar {
+    width: 100%;
+    height: 30vh;
+}
+.username {
+    width: 100%;
+    height: auto;
+    margin-bottom: 90px !important;
+}
 
+.success-slider-wrap {
+    width: 100%;
+    height: 40px;
+    position: relative;
+    float: left;
+    margin-top: 20px;
+}
+.full-slider {
+    position: absolute;
+    width: 100%;
+    border: 1px solid $green;
+    height: 8px;
+}
+.current-slider {
+    position: absolute;
+    // width: 80%;
+    left:0;
+    height: 10px;
+    background-color: $green;
+}
+.start-slider {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    top: -5px;
+    // left: 80%;
+    background-color: $green;
+}
+.score-content-elem-wrap {
+    margin-top: 15px;
+    width: 100%;
+    height: 114px;
+    border-radius: 10px;
+    padding: 10px;
+    float: left;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    background-color: white;
+}
+.score-wrap {
+    width: 100%;
+    height: 50px;
+    float: left;
+    font-weight: 300;
+    padding: 10px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;  
+}
+.balance-content-wrapp {
+    width: 100%;
+    height: 100px;
+    border-radius: 10px;
+    padding: 10px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    background-color: $violet;
+    float: left;
+    margin-top: 20px;
+}
+.balance-content-value-wrap {
+    width: 60%;
+    float: left;
+}
+.balance-content-value-wrap p {
+    padding: 10px;
+    padding-bottom:0;
+}
+.balance-content-image-wrap {
+    width: 40%;
+    float: right;
+}
+.store {
+    width: 100%;
+    float: left;
+    height: 50px;
+    margin-top: 20px;
+    margin-bottom: 40px;
+}
+.store button {
+    background-color: $green;
+    width: 100%;
+    border-radius: 10000px;
+    float: left;
+    height: 50px;
+    color: white;
+    outline: none;
+    border: none;
+}
 </style>

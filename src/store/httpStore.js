@@ -5,8 +5,11 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
-    host: 'http://35.188.16.193:80/',
-    login: 'login/'
+    host: 'http://35.188.16.193/',
+    login: 'login/',
+    profiles: 'profiles/',
+    topics: 'topics/',
+    blocks: 'blocks/'
   }
 })
 export default store

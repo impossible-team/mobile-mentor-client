@@ -1,43 +1,122 @@
 <template>
   <div id="app">
-    <div class="head">
+    <div class="head" v-if="logged">
       <div class="logo"></div>
-      <div class="avatar" v-if="logged"></div>
+      <div class="avatar"></div>
     </div>
     <div class="content" v-if="logged">
+      <router-view></router-view>
     </div>
-    <app-login v-if="!logged"></app-login>
+    <app-login v-if="!logged" class="logged"></app-login>
+    <div class="menu" v-if="logged">
+      <div class="menu-elem">
+        <img src="./assets/img/graduation-cap.svg" @click="toList()">
+      </div>
+      <div class="menu-elem">
+        <img src="./assets/img/swords.svg" @click="toBattle()">
+      </div>
+      <div class="menu-elem">
+        <img src="./assets/img/list.svg" @click="toList()">
+      </div>
+      <div class="menu-elem">
+        <img src="./assets/img/profile.svg" @click="toProfile()">
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import Login from './components/Login'
+import Profile from './components/Profile'
 import userStore from './store/userStore.js'
+import httpStore from './store/httpStore.js'
 export default {
   name: 'app',
   components: {
-    'AppLogin': Login
+    'AppLogin': Login,
+    'AppProfile': Profile
   },
   data () {
     return {
     }
   },
+  mounted () {
+    this.checkLogin()
+  },
   computed: {
     logged() {
       return userStore.state.logged
+    }
+  },
+  methods: {
+    checkLogin () {
+      let id = localStorage.getItem('id')
+      if (id) {
+        this.$http.get(httpStore.state.host + httpStore.state.profiles + id + '/').then((response) => {
+              userStore.state.logged = true
+              userStore.state.username = this.name
+              userStore.state.topicStudied = response.data.topic_studied
+              userStore.state.topicTotal = response.data.topic_total
+              userStore.state.gameRating = response.data.game_rating
+              userStore.state.gameCount = response.data.game_total
+              userStore.state.gameWon = response.data.game_won
+              userStore.state.points = response.data.points
+              localStorage.setItem('id', response.data.id)
+          }).catch(error => {
+              console.log(error)
+          })
+      }
+    },
+    toList () {
+      this.$router.push('/lib')
+    },
+    toBattle () {
+      this.$router.push('/battle')
+    },
+    toProfile () {
+      this.$router.push('/')
     }
   }
 }
 </script>
 
 <style lang="scss">
+@import "./assets/app.scss";
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800');
+
 body {
   padding: 0;
   margin: 0;
 }
 p, a, span, input, button, div {
   font-size: 16pt;
+  margin: 0;
+  padding: 0;
+  font-family: 'Open Sans', sans-serif;
 }
+
+p {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box; 
+}
+
+button {
+  padding-bottom: 4px;
+}
+
+.green-text {
+  color: $green !important;
+}
+
+.violet-text {
+  color: $violet !important;
+}
+
+.white-text {
+  color: white !important;
+}
+
 input {
   padding: 10px;
   -webkit-box-sizing: border-box;
@@ -52,9 +131,10 @@ input {
   // color: #2c3e50;
   // margin-top: 60px;
   width: 100vw;
-  height: 100vh;
+  height: calc(100vh - 57px);
   padding: 0;
   margin:0;
+  background-color: $back-color;
 }
 
 h1, h2 {
@@ -70,17 +150,70 @@ li {
   display: inline-block;
   margin: 0 10px;
 }
-
-a {
-  color: #42b983;
-}
 .head {
   width: 100%;
   height: 50px;
   background-color: blue;
+  float: left;
 }
 .content {
   width: 100%;
+  height: calc(100% - 100px);
+  overflow: hidden;
+  float: left;
+  overflow-y: auto;
+}
+.menu {
+  width: 100%;
+  height: 50px;
+  float: left;
+  background-color: white;
+}
+.menu-elem {
+  height: 100%;
+  width: calc(100% / 4);
+  float: left;
+  padding: 14px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  text-align: center;
+}
+.menu-elem img {
+  width: auto;
+  height: 100%;
+  object-fit: cover;
+}
+.logged {
+  width: 100%;
+  background-color: #42b983;
   height: calc(100% - 50px);
+  float: left;
+}
+.full-width-text {
+    width: 100%;
+}
+.float-left-text {
+    float: left;
+}
+.float-right-text {
+    float:right;
+}
+.title-text {
+    font-size: 14pt;
+    color: gray;
+    font-weight: 300;
+}
+.large-text {
+    font-size: 18pt;
+    color: black;
+}
+.small-text {
+    font-size: 14pt;
+    color: black;
+}
+.middle-text {
+    font-size: 16pt;
+    color: black;
 }
 </style>
