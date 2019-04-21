@@ -5,7 +5,7 @@
             подходящего вам <br>
             по уровню соперника ...
         </p>
-        <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+        <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
     </div>
 </template>
 <script>
@@ -26,9 +26,9 @@ export default {
     methods: {
         getGame () {
             let data = {
-                'user_id': userStore.state.id
+                'user_id': localStorage.getItem('id')
             }
-            this.$http.post(httpStore.state.host + httpStore.state.game, data=data).then((response) => {
+            this.$http.post(httpStore.state.host + httpStore.state.game, data).then((response) => {
                 gameStore.state.gameId = response.data.id
                 gameStore.state.questions = response.data.questions
                 this.gameIsActive = true;
@@ -37,7 +37,7 @@ export default {
             })
         },
         checkGameStatus (context) {
-            this.$http.get(httpStore.state.host + httpStore.state.gameInfo + '?id=' + gameStore.state.gameId + '/').then((response) => {
+            this.$http.get(httpStore.state.host + httpStore.state.game + gameStore.state.gameId + '/').then((response) => {
                 let gameState = response.data.state
                 if (gameState === 3) {
                     clearInterval(context.timerId)
@@ -74,7 +74,7 @@ export default {
 
 <style lang="scss" scoped>
 @import "../assets/app.scss";
-.lds-ring {
+.lds-ellipsis {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -83,38 +83,62 @@ export default {
     margin-top: -32px;
     margin-left: -32px;
 }
-.lds-ring {
-  display: inline-block;
+
+.lds-ellipsis {
+  width: 64px;
+  height: 64px;
 }
-.lds-ring div {
-  box-sizing: border-box;
-  display: block;
+.lds-ellipsis div {
   position: absolute;
-  width: 51px;
-  height: 51px;
-  margin: 6px;
-  border: 6px solid $violet;
+  top: 27px;
+  width: 11px;
+  height: 11px;
   border-radius: 50%;
-  animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-  border-color: $violet transparent transparent transparent;
+  background: $green;
+  animation-timing-function: cubic-bezier(0, 1, 1, 0);
 }
-.lds-ring div:nth-child(1) {
-  animation-delay: -0.45s;
+.lds-ellipsis div:nth-child(1) {
+  left: 6px;
+  animation: lds-ellipsis1 0.6s infinite;
+  background: $violet;
 }
-.lds-ring div:nth-child(2) {
-  animation-delay: -0.3s;
+.lds-ellipsis div:nth-child(2) {
+  left: 6px;
+  animation: lds-ellipsis2 0.6s infinite;
 }
-.lds-ring div:nth-child(3) {
-  animation-delay: -0.15s;
+.lds-ellipsis div:nth-child(3) {
+  left: 26px;
+  animation: lds-ellipsis2 0.6s infinite;
 }
-@keyframes lds-ring {
+.lds-ellipsis div:nth-child(4) {
+  left: 45px;
+  animation: lds-ellipsis3 0.6s infinite;
+}
+@keyframes lds-ellipsis1 {
   0% {
-    transform: rotate(0deg);
+    transform: scale(0);
   }
   100% {
-    transform: rotate(360deg);
+    transform: scale(1);
   }
 }
+@keyframes lds-ellipsis3 {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0);
+  }
+}
+@keyframes lds-ellipsis2 {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(19px, 0);
+  }
+}
+
 .battle-in-progress-title {
     width: 100%;
     padding: 20px;

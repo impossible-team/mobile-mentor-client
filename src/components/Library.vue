@@ -7,7 +7,7 @@
             <div class="theme-item-wrap" v-for="topic in topics" :key="topic.id">
                 <div class="theme-item-block" @click="toDetailTheme(topic.id, topic.name)">
                     <div class="theme-item-header">
-                        <p class="theme-item-num">Тема {{id}}</p>
+                        <p class="theme-item-num">Тема {{topic.id}}</p>
                         <p class="theme-item-status">Пройдено</p>
                         <img>
                     </div>

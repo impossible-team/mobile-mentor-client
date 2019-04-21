@@ -65,7 +65,7 @@ export default {
     color: white;
     outline: none;
     border: none;
-    margin-top: 40px;
+    margin-top: 30px;
 }
 .battle-title {
     font-size: 24pt !important;

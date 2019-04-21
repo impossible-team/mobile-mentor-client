@@ -6,11 +6,11 @@
         <div class="users-block">
             <div class="user">
                 <img>
-                <p>player1Username</p>
+                <p>{{player1Username}}</p>
             </div>
             <div class="user">
                 <img>
-                <p>player2Username</p>
+                <p>{{player2Username}}</p>
             </div>
         </div>
         <div class="timer">
@@ -29,10 +29,10 @@ export default {
     },
     computed: {
         player1Username () {
-            gameStore.state.player1Username
+            return gameStore.state.player1Username
         },
         player2Username () {
-            gameStore.state.player2Username
+            return gameStore.state.player2Username
         }
     },
     mounted () {
@@ -69,9 +69,9 @@ export default {
 .users-block {
     width: 100%;
     height: 150px;
-    background-color: red;
     margin-top: 40px;
-    padding: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
@@ -87,5 +87,21 @@ export default {
 .timer-count {
     font-size: 20pt;
     font-weight: 600;
+}
+.user {
+    width: 50%;
+    height: 100%;
+    float: left;
+    text-align: center;
+}
+.user img{
+    height: 100px;
+    width: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+.user p {
+    font-size: 14pt;
+    margin-top: 10px;
 }
 </style>

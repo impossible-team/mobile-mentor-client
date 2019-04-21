@@ -1,16 +1,24 @@
 <template>
   <div id="app">
     <div class="head" v-if="logged">
-      <div class="logo"></div>
-      <div class="avatar"></div>
+      <div class="logo">
+        <img src="./assets/img/logo.svg">
+      </div>
+      <div class="avatar">
+        <p>{{username}}</p>
+      </div>
     </div>
     <div class="content" v-if="logged">
       <router-view></router-view>
     </div>
     <app-login v-if="!logged" class="logged"></app-login>
     <div class="menu" v-if="logged">
-      <div class="menu-elem">
-        <img v-if="$route.meta.part !== 'Stores'" src="./assets/img/gray-graduation-cap.svg" @click="toList()">
+      <div class="menu-wrapper">
+      <div class="menu-elem back-arrow">
+        <img src="./assets/img/left-arrow.svg" @click="toBack()">
+      </div>
+      <div class="menu-elem wlapa">
+        <img v-if="$route.meta.part !== 'Topic'" src="./assets/img/gray-graduation-cap.svg" @click="toList()">
         <img v-else src="./assets/img/graduation-cap.svg">
       </div>
       <div class="menu-elem">
@@ -18,12 +26,9 @@
         <img v-else src="./assets/img/swords.svg">
       </div>
       <div class="menu-elem">
-        <img v-if="$route.meta.part !== 'Topic'" src="./assets/img/gray-list.svg" @click="toList()">
-        <img v-else src="./assets/img/list.svg">
-      </div>
-      <div class="menu-elem">
         <img v-if="$route.meta.part !== 'Profile'" src="./assets/img/gray-profile.svg" @click="toProfile()">
         <img v-else src="./assets/img/profile.svg">
+      </div>
       </div>
     </div>
   </div>
@@ -50,6 +55,9 @@ export default {
   computed: {
     logged() {
       return userStore.state.logged
+    },
+    username () {
+      return userStore.state.username
     }
   },
   methods: {
@@ -79,6 +87,9 @@ export default {
     },
     toProfile () {
       this.$router.push('/')
+    },
+    toBack () {
+      this.$router.back()
     }
   }
 }
@@ -87,6 +98,7 @@ export default {
 <style lang="scss">
 @import "./assets/app.scss";
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800');
+@import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700');
 html {
   width: 100%;
   height: 100%;
@@ -96,10 +108,10 @@ body {
   margin: 0;
 }
 p, a, span, input, button, div {
-  font-size: 16pt;
+  font-size: 14pt;
   margin: 0;
   padding: 0;
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Montserrat', sans-serif;
 }
 
 p {
@@ -159,13 +171,12 @@ li {
 }
 .head {
   width: 100%;
-  height: 50px;
-  background-color: blue;
+  height: 80px;
   float: left;
 }
 .content {
   width: 100%;
-  height: calc(100% - 100px);
+  height: calc(100% - 130px);
   overflow: hidden;
   float: left;
   overflow-y: auto;
@@ -175,6 +186,7 @@ li {
   height: 50px;
   float: left;
   background-color: white;
+  position: relative;
 }
 .menu-elem {
   height: 100%;
@@ -194,7 +206,7 @@ li {
 .logged {
   width: 100%;
   background-color: #42b983;
-  height: calc(100% - 50px);
+  height: calc(100% - 80px);
   float: left;
 }
 .full-width-text {
@@ -222,5 +234,52 @@ li {
 .middle-text {
     font-size: 16pt;
     color: black;
+}
+.back-arrow {
+  padding: 14px 18px 18px 18px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.back-arrow {
+  margin-top: 1px;
+}
+.wlapa {
+  padding: 12px 12px 12px 12px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.logo {
+  width: auto;
+  height: 46px;
+  padding-left:  20px;
+  margin-top: 20px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  float: left;
+}
+.logo img {
+  width: auto;
+  height: 100%;
+  object-fit: cover;
+}
+.avatar {
+  float: right;
+  margin-right: 20px;
+  margin-top: 30px;
+}
+.avatar p {
+  color: gray;
+  font-size: 14pt;
+}
+.menu-wrapper {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top:0;
+  left:0;
+  z-index: 1;
 }
 </style>

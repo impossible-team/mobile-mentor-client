@@ -10,9 +10,7 @@ const store = new Vuex.Store({
     profiles: 'profiles/',
     topics: 'topics/',
     blocks: 'blocks/',
-    game: 'games/',
-    gameInfo: 'games-info/',
-    gameSendResult: 'game-result/'
+    game: 'games/'
   }
 })
 export default store

@@ -1,10 +1,13 @@
 <template>
     <div id="battlePlay">
         <div class="count-and-time">
-            <p>{{questionIndex + 1}} из {{questions.length}} вопросов</p>
-            <p>осталось {{countDown}} сек.</p>
+            <p class="count-wrapp">{{questionIndex + 1}} из {{questions.length}} вопросов</p>
+            <p class="time-wrapp">осталось {{countDown}} сек.</p>
         </div>
         <div id="content-question">
+        </div>
+        <div class="next-question">
+            <button>дальше</button>
         </div>
     </div>
 </template>
@@ -15,7 +18,7 @@ export default {
         return{
             questions: [],
             timerId: null,
-            coundDown: 10,
+            countDown: 10,
             questionIndex: 0,
             currentQuestionId: 0,
             answer: 0,
@@ -28,15 +31,15 @@ export default {
         }
     },
     mounted () {
-        this.firstQuestion()
         this.timer()
         this.nextQuestion()
+        this.firstQuestion()
     },
     methods: {
         timer () {
             let self = this
             this.timerId = setInterval( function () {
-                self.coundDown -= 0
+                self.countDown -= 1
             }, 1000)
         },
         firstQuestion () {
@@ -66,5 +69,44 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-
+@import "../assets/app.scss";
+#battlePlay {
+    padding: 20px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box; 
+}
+.next-question {
+    width: 100%;
+    float: left;
+    height: 50px;
+    margin-top: 20px;
+    margin-bottom: 40px;
+}
+.next-question button {
+    background-color: $green;
+    width: 100%;
+    border-radius: 10000px;
+    float: left;
+    height: 50px;
+    color: white;
+    outline: none;
+    border: none;
+}
+.count-and-time {
+    width: 100%;
+    height: 50px;
+    float: left;
+    margin-top: 20px;
+}
+.count-wrapp {
+    font-size: 12pt;
+    float: left;
+    color: gray;
+}
+.time-wrapp {
+    font-size: 12pt;
+    float: right;
+    color: gray;
+}
 </style>

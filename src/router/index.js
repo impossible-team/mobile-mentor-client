@@ -9,6 +9,7 @@ import Battle from '../components/Battle'
 import BattleInProgress from '../components/BattleInProgress'
 import BattleStart from '../components/BattleStart'
 import BattlePlay from '../components/BattlePlay'
+import BattleResult from '../components/BattleResult'
 
 Vue.use(Router)
 
@@ -78,6 +79,14 @@ const router = new Router({
             part: 'Battle'
         },
         component: BattlePlay
+    },
+    {
+        path: '/battleResult',
+        name: 'BattleResult',
+        meta: {
+            part: 'Battle'
+        },
+        component: BattleResult
     }
   ]
 })

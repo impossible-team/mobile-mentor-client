@@ -1,8 +1,8 @@
 <template>
     <div id="profile">
         <div class="profile-wrapper">
-        <div class="avatar">
-            <img>
+        <div class="avatar-wrapper">
+            <img class="avatar" src="../assets/img/avatar.png">
         </div>
         <div class="username">
             <p class="title-text full-width-text float-left-text">пользователь:</p>
@@ -16,8 +16,8 @@
             <div class="success-slider-wrap">
                 <div class="full-slider"></div>
                 <div class="current-slider" :style="{width: Math.floor(topicStudied/topicTotal) * 100 + '%'}"></div>
-                <div class="start-slider" :style="{left: Math.floor(topicStudied/topicTotal) * 100 - 5 + '%'}">
-                    <img>
+                <div class="start-slider" :style="{left: Math.floor(topicStudied/topicTotal) * 100 + '%'}">
+                    <img src="../assets/img/star.svg">
                 </div>
             </div>
         </div>
@@ -38,14 +38,12 @@
             </div>
         </div>
         <div class="balance">
-            <div class="balance-content-wrapp">
-                <div class="balance-content-value-wrap">
-                    <p class="title-text full-width-text white-text float-left-text">На счету:</p>
-                    <p class="middle-text full-width-text white-text float-left-text">{{points}} баллов</p>
-                </div>
-                <div class="balance-content-image-wrap">
-                    <img>
-                </div>
+        <div class="balance-content-wrapp">
+            <div class="balance-content-value-wrap">
+                <p class="title-text full-width-text white-text float-left-text">На счету:</p>
+                <p class="middle-text full-width-text white-text float-left-text">{{points}} баллов</p>
+            </div>
+            <img src="../assets/img/coins_bg.png">
             </div>
         </div>
         <div class="store">
@@ -128,11 +126,16 @@ export default {
 .avatar {
     width: 100%;
     height: 30vh;
+    float: left;
 }
 .username {
     width: 100%;
     height: auto;
-    margin-bottom: 90px !important;
+    margin-bottom: 10px !important;
+    float: left;
+}
+.username p{
+    margin-bottom: 10px;
 }
 
 .success-slider-wrap {
@@ -156,12 +159,16 @@ export default {
     background-color: $green;
 }
 .start-slider {
-    width: 20px;
-    height: 20px;
+    width: 25px;
+    height: 25px;
     position: absolute;
-    top: -5px;
+    top: -12px;
     // left: 80%;
-    background-color: $green;
+}
+.start-slider img {
+    object-fit: cover;
+    margin-left: -6px;
+
 }
 .score-content-elem-wrap {
     margin-top: 15px;
@@ -196,14 +203,30 @@ export default {
     background-color: $violet;
     float: left;
     margin-top: 20px;
+    position: relative;
 }
 .balance-content-value-wrap {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 1;
     width: 60%;
-    float: left;
 }
 .balance-content-value-wrap p {
     padding: 10px;
+    padding-top: 13px;
+    padding-left: 20px;
     padding-bottom:0;
+}
+.balance-content-wrapp img {
+    position: absolute;
+    left: 0;
+    top:0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100px;
+    z-index: 0;
 }
 .balance-content-image-wrap {
     width: 40%;
@@ -215,6 +238,9 @@ export default {
     height: 50px;
     margin-top: 20px;
     margin-bottom: 40px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;  
 }
 .store button {
     background-color: $green;
@@ -225,5 +251,14 @@ export default {
     color: white;
     outline: none;
     border: none;
+}
+.avatar {
+    width: 54%;
+    height: auto;
+    object-fit: cover;
+    margin-top: 20px;
+    margin-bottom: 35px;
+    margin-left: 23%;
+    margin-right: 23%;
 }
 </style>
