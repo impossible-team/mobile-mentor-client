@@ -64,6 +64,7 @@ export default {
                     self.answersResult.push({'test_id': self.currentQuestionId, 'answer_code': self.answer})
                     self.nextQuestion()
                 } else {
+                    self.answersResult.push({'test_id': self.currentQuestionId, 'answer_code': self.answer})
                     self.sendTestResult()
                     self.$router.push('/battleResult')
                 }
@@ -71,7 +72,7 @@ export default {
         },
         sendTestResult () {
             let data = {
-                'user_id': localStorage.getItem('id'),
+                'user_id': +localStorage.getItem('id'),
                 'answers': this.answersResult
             }
             console.log(data)

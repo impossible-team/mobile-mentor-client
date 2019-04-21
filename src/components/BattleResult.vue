@@ -21,7 +21,7 @@
                     <img src="../assets/img/coins_bg.png">
                 </div>
             </div>
-            <button class="new-battle">найти нового соперника</button>
+            <!-- <button class="new-battle">найти нового соперника</button> -->
             </div>
     </div>
 </template>
@@ -33,13 +33,11 @@ export default {
     data () {
         return {
             finishGame: false,
-            timerId: null
+            timerId: null,
+            points: 0
         }
     },
     computed: {
-        points () {
-            return gameStore.state.winnerPoints
-        },
         winner () {
             return gameStore.state.winner == localStorage.getItem('id')
         }
@@ -61,13 +59,29 @@ export default {
                     gameStore.state.player2Id = response.data.player2.id
                     gameStore.state.player2Username = response.data.player2.username
                     gameStore.state.player2GameRating = response.data.player2.game_rating
-                    gameStore.state.winner = response.data.winner
+                    gameStore.state.winner = response.data.winner.id
                     gameStore.state.loser = response.data.loser
                     gameStore.state.winnerPoints = response.data.winner_points
-                    gameStore.state.looserPoints = response.data.looser_points
-                    gameStore.state.start = response.data.start
-                    gameStore.state.end = response.data.end
+                    gameStore.state.looserPoints = response.data.loser_points
                     gameStore.state.state = response.data.state
+                    if (gameStore.state.winner == localStorage.getItem('id')){
+                        this.points = response.data.winner_points
+                    } else {
+                        this.points = response.data.loser_points
+                    }
+                    gameStore.state.player1Id = 0
+                    gameStore.state.player1Username = 0
+                    gameStore.state.player1GameRating = 0
+                    gameStore.state.player2Id = 0
+                    gameStore.state.player2Username = 0
+                    gameStore.state.player2GameRating = 0
+                    gameStore.state.winner = 0
+                    gameStore.state.loser = 0
+                    gameStore.state.winnerPoints = 0
+                    gameStore.state.looserPoints = 0
+                    gameStore.state.state = 0
+                    gameStore.state.questions = []
+                    gameStore.state.gameId = 0
                 }
             }).catch(error => {
                 console.log(error)

@@ -39,7 +39,7 @@ export default {
         checkGameStatus (context) {
             context.$http.get(httpStore.state.host + httpStore.state.game + gameStore.state.gameId + '/').then((response) => {
                 let gameState = response.data.state
-                if (gameState === 3) {
+                if (gameState === 1) {
                     clearInterval(context.timerId)
                     gameStore.state.player1Id = response.data.player1.id
                     gameStore.state.player1Username = response.data.player1.username

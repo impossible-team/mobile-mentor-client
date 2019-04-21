@@ -65,7 +65,7 @@ export default {
     position: absolute;
     bottom:0;
     width: 100%;
-    height: 320px;
+    height: 340px;
     background-color: white;
 }
 .form-input {
@@ -103,8 +103,8 @@ export default {
 .login-title {
     font-size: 15pt;
     color: black;
-    margin-top: 90px;
-    margin-bottom: 30px;
+    margin-top: 80px;
+    margin-bottom: 50px;
     margin-left: 20px;
     margin-right: 20px;
     font-weight: 600;
@@ -114,9 +114,9 @@ export default {
     width: 100%;
     height: 400px;
     position: absolute;
-    top: 0;
+    top: -40px;
     left:0;
-    z-index: 1;
+    z-index: 21;
 }
 .fon img {
     width: 100%;
